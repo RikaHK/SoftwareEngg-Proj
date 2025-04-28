@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`ID`, `name`, `email`, `password`) VALUES
 (1, 'admin', 'admin@gmail.com', 'admin@123'),
-(2, 'munam', 'mm123@gmail.com', 'munib@123');
+(2, 'munam', 'mm123@gmail.com', 'munam@123');
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE `jobfairdates` (
 --
 
 INSERT INTO `jobfairdates` (`startdate`, `enddate`, `starttime`, `endtime`) VALUES
-('2025-04-07', '2025-04-24', '08:00', '17:00');
+('2024-05-07', '2024-05-24', '08:00', '17:00');
 
 -- --------------------------------------------------------
 
@@ -191,8 +191,8 @@ CREATE TABLE `studentresumedetails` (
 --
 
 INSERT INTO `studentresumedetails` (`fullname`, `email`, `field`, `phone`, `language`, `experties`, `currentsemester`, `skills`, `about`) VALUES
-('Munib bajwa', '', 'CS', '03435231909', 'English, Urdu', 'All, All', '6', 'All, All', 'fdfdsfds'),
-('hamza rehman', '', 'CS', '03435231909', 'English, Urdu', 'All, All', '1', 'All, All', 'cdc'),
+('Munam Mustafa Ahmed', '', 'CS', '03435231909', 'English, Urdu', 'All, All', '6', 'All, All', 'fdfdsfds'),
+('Munam Mustafa Ahmed', '', 'CS', '03435231909', 'English, Urdu', 'All, All', '1', 'All, All', 'cdc'),
 ('Munam Mustafa', 'mm123@gmail.com', 'CS', '03435231909', 'English, Urdu', 'All, All', '1', 'All, All', 'sa'),
 ('Ammar Arshad', 'ammar123@gmail.com', 'CS', '03435231909', 'English, Urdu', 'All, All', '7', 'All, All', 'njnkjkj');
 
