@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg'); /* Added background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content to the top center */
+        }
+
+        /* Your CSS styles here */
+        .menu-icon {
+            position: fixed;
+            top: 40px; /* Adjusted position */
+            left: 20px;
+            cursor: pointer;
+            z-index: 999; /* Ensure menu icon stays on top */
+            font-size: 24px; /* Increased font size */
+        }
+        
+        .menu {
+            position: fixed;
+            top: 60px; /* Adjusted position */
+            left: -200px; /* Hide initially */
+            width: 200px;
+            height: 100%;
+            background-color: rgba(106, 90, 205, 0.8); /* Transparent SlateBlue */
+            transition: left 0.3s ease;
+            z-index: 99; /* Ensure menu stays below menu icon */
+        }
+        
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            padding-top: 20px;
+        }
+        
+        .menu li {
+            padding: 10px;
+            text-align: center;
+            color: white; /* Changed text color to white */
+            border-bottom: 1px solid #666;
+        }
+        
+        .menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .menu li:hover {
+            background-color: #444;
+        }
+
+        #welcomeMessage {
+            color: white;
+            font-size: 36px; /* Increased font size */
+            margin-top: 20px;
+            z-index: 999; /* Ensure welcome message stays on top */
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-icon">&#9776;</div>
+    <div class="menu">
+        <ul>
+            <li><a href="admin_view_student_details.html" style="color: white;">View Student Details</a></li>
+            <li><a href="admin_view_participating_organization.html" style="color: white;">View Participating Organization</a></li>
+            <li><a href="admin_announce_job_fair_days.html" style="color: white;">Announce Job Fair Days</a></li>
+            <li><a href="admin_schedule_interview.html" style="color: white;">Schedule Interview of Approved Students</a></li>
+            <li><a href="admin_allocate_rooms.html" style="color: white;">Allocate Rooms to Organizations</a></li>
+        </ul>
+    </div>
+    
+    <h1 id="welcomeMessage"></h1>
+    <script>
+        // Get user's name from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+
+        // Display welcome message with user's name
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        welcomeMessage.textContent = `Welcome To the Admin Menu, ${name}!`;
+        
+        // Toggle menu
+        const menuIcon = document.querySelector('.menu-icon');
+        const menu = document.querySelector('.menu');
+        menuIcon.addEventListener('click', function() {
+            menu.style.left = menu.style.left === '0px' ? '-200px' : '0px';
+        });
+    </script>
+    <!-- Your menu content goes here -->
+</body>
+</html>

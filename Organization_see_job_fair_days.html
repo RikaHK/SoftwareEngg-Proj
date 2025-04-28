@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job Fair Dates</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #jobFairDatesContainer {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>View Job Fair Dates at FAST University</h1>
+    <button id="viewJobFairDatesBtn">View Job Fair Dates</button>
+    <div id="jobFairDatesContainer"></div>
+
+    <script>
+        document.getElementById("viewJobFairDatesBtn").addEventListener("click", function() {
+            // AJAX request to fetch job fair dates
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "fetch_student_job_fair_dates.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("jobFairDatesContainer").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching job fair dates: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>

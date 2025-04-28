@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(106, 90, 205, 0.8); /* Transparent slateblue */
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            z-index: 9998;
+        }
+        .menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px;
+            border-bottom: 1px solid #555;
+            transition: background-color 0.3s ease;
+        }
+        .menu a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-message">Welcome, <span id="userName"></span>!</h1>
+    </div>
+
+    <div class="menu-btn" onclick="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <div class="menu" id="menu">
+        <a href="Student_resume_page.html">Resume Build-up</a>
+        <a href="Student_view_organizations_page.html">View Participating Organizations</a>
+        <a href="student_job_fair_dates.html">Job Fair Dates</a>
+        <a href="student_view_scheduled_interview.html">View Scheduled Interview</a>
+        <a href="student_view_anonymous_reviews.html">View Anonymous Reviews from Organizations</a>
+    </div>
+
+    <script>
+        // Get user's name from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        document.getElementById('userName').textContent = name;
+
+        // Toggle menu visibility
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.left === '0px') {
+                menu.style.left = '-250px';
+            } else {
+                menu.style.left = '0';
+            }
+        }
+    </script>
+</body>
+</html>

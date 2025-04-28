@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Interviews</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        input[type="text"], input[type="button"], input[type="submit"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule Interviews</h1>
+        <form id="scheduleForm">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+            <input type="button" value="View" onclick="viewInterviews()">
+        </form>
+
+        <div id="interviewsList"></div>
+
+        <input type="submit" value="Schedule Interviews" onclick="scheduleInterviews()">
+    </div>
+
+    <script>
+        function viewInterviews() {
+            var companyName = document.getElementById("companyName").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "get_interviews.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        document.getElementById("interviewsList").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching interviews: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send("companyName=" + companyName);
+        }
+
+        function scheduleInterviews() {
+            var companyName = document.getElementById("companyName").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "schedule_interviews.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert(xhr.responseText);
+                    } else {
+                        console.error("Error scheduling interviews: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send("companyName=" + companyName);
+        }
+    </script>
+</body>
+</html>

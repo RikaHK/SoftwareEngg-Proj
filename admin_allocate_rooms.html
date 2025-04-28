@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Allocate Rooms</title>
+        <style>
+            body {
+                background-image: url('images/background.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                font-family: Arial, sans-serif;
+            }
+            h1 {
+                color: white;
+                text-align: center;
+            }
+            form {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+            }
+            label {
+                color: white;
+            }
+            select, input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                background-color: white;
+                color: #333;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            select:hover, input[type="submit"]:hover {
+                background-color: #f0f0f0;
+            }
+            input[type="submit"] {
+                background-color: slateblue; /* Change button color */
+                color: white; /* Change text color */
+            }
+            input[type="submit"]:hover {
+                background-color: darkslateblue; /* Change button color on hover */
+            }
+        </style>
+    </head>
+<body>
+    <h1>Allocate Rooms</h1>
+    <form action="allocate_rooms.php" method="post">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required>
+        <label for="room">Select Room:</label>
+        <select id="room" name="room" required>
+            <optgroup label="A Rooms">
+                <option value="A001">A001</option>
+                <option value="A002">A002</option>
+                <option value="A003">A003</option>
+                <option value="A004">A004</option>
+                <option value="A005">A005</option>
+                <option value="A006">A006</option>
+                <option value="A007">A007</option>
+                <option value="A008">A008</option>
+                <option value="A009">A009</option>
+                <option value="A010">A010</option>
+                <option value="A101">A101</option>
+                <option value="A102">A102</option>
+                <option value="A103">A103</option>
+                <option value="A104">A104</option>
+                <option value="A105">A105</option>
+                <option value="A106">A106</option>
+                <option value="A107">A107</option>
+                <option value="A108">A108</option>
+                <option value="A109">A109</option>
+                <option value="A110">A110</option>
+                <option value="A201">A201</option>
+                <option value="A202">A202</option>
+                <option value="A203">A201</option>
+                <option value="A204">A202</option>
+                <option value="A205">A201</option>
+                <option value="A206">A202</option>
+                <option value="A207">A201</option>
+                <option value="A208">A202</option>
+                <option value="A209">A201</option>
+                <option value="A210">A202</option>
+
+                <option value="B001">B001</option>
+                <option value="B002">B002</option>
+                <option value="B003">B003</option>
+                <option value="B004">B004</option>
+                <option value="B005">B005</option>
+                <option value="B006">B006</option>
+                <option value="B007">B007</option>
+                <option value="B008">B008</option>
+                <option value="B009">B009</option>
+                <option value="B010">B010</option>
+                <option value="B101">B101</option>
+                <option value="B102">B102</option>
+                <option value="B103">B103</option>
+                <option value="B104">B104</option>
+                <option value="B105">B105</option>
+                <option value="B106">B106</option>
+                <option value="B107">B107</option>
+                <option value="B108">B108</option>
+                <option value="B109">B109</option>
+                <option value="B110">B110</option>
+                <option value="B201">B201</option>
+                <option value="B202">B202</option>
+                <option value="B205">B203</option>
+                <option value="B206">B204</option>
+                <option value="B207">B205</option>
+                <option value="B208">B206</option>
+                <option value="B209">B207</option>
+                <option value="B210">B208</option>
+                <option value="B209">B209</option>
+                <option value="B210">B210</option>
+
+
+                <option value="C001">C001</option>
+                <option value="C002">C002</option>
+                <option value="C003">C003</option>
+                <option value="C004">C004</option>
+                <option value="C005">C005</option>
+                <option value="C006">C006</option>
+                <option value="C007">C007</option>
+                <option value="C008">C008</option>
+                <option value="C009">C009</option>
+                <option value="C010">C010</option>
+                <option value="C101">C101</option>
+                <option value="C102">C102</option>
+                <option value="C103">C103</option>
+                <option value="C104">C104</option>
+                <option value="C105">C105</option>
+                <option value="C106">C106</option>
+                <option value="C107">C107</option>
+                <option value="C108">C108</option>
+                <option value="C109">C109</option>
+                <option value="C110">C110</option>
+                <option value="C201">C201</option>
+                <option value="C202">C202</option>
+                <option value="C203">C203</option>
+                <option value="C204">C204</option>
+                <option value="C205">C205</option>
+                <option value="C206">C206</option>
+                <option value="C207">C207</option>
+                <option value="C208">C208</option>
+                <option value="C209">C209</option>
+                <option value="C210">C210</option>
+
+                <!-- Add more A Rooms options as needed -->
+            </optgroup>
+            <!-- Add more room groups options as needed -->
+        </select>
+        <input type="submit" value="Allocate">
+    </form>
+</body>
+</html>

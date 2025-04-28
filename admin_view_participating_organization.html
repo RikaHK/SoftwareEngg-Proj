@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Participating Organizations</title>
+    <style>
+        /* Reset default margin and padding */
+        body, h1, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply background image */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff; /* Text color */
+        }
+
+        /* Styling for the container */
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+        }
+
+        /* Styling for the organization details list */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        /* Styling for each organization item */
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Styling for the button */
+        #viewButton {
+            background-color: #007bff; /* Blue color */
+            color: #fff; /* Text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #viewButton:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Participating Organizations</h1>
+        <button id="viewButton">View Organization Details</button>
+        <div id="organizationDetails"></div>
+    </div>
+
+    <script>
+        document.getElementById("viewButton").addEventListener("click", function() {
+            // AJAX request to fetch organization details
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "admin_view_participating_organization.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("organizationDetails").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching organization details: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>

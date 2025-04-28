@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Job Fair Management System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        
+        .about-background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-image: url('images/about_background.jpg'); /* Add the background image for the about page */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .content-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 30px;
+            color: #000; /* Text color */
+            background-color: rgba(255, 255, 255, 0.9); /* Container background color with opacity */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Box shadow */
+            width: 80%; /* Increased width */
+            max-width: 800px; /* Maximum width */
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px; /* Increased margin bottom */
+            color: #007bff; /* Heading color */
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        /* Home button styles */
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff; /* Button background color */
+            color: #fff; /* Button text color */
+            padding: 10px 20px; /* Button padding */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3; /* Darker color on hover */
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">Home</a>
+    <div class="about-background-image"></div>
+    <div class="content-container">
+        <h2>About Us</h2>
+        <p>Welcome to the Job Fair Management System at FAST University. Over the years, we have successfully organized numerous job fairs, connecting talented individuals with leading employers. Our goal is to provide a platform for students and professionals to explore career opportunities, network with industry experts, and secure meaningful employment.</p>
+    </div>
+</body>
+</html>

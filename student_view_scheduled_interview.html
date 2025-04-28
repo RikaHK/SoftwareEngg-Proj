@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Scheduled Interviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+        }
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        label {
+            color: white;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            color: #333; /* Text color */
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #scheduledInterviews {
+            color: white;
+            margin-top: 20px;
+            text-align: left;
+        }
+        #scheduledInterviews p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Scheduled Interviews</h1>
+        <label for="email">Enter Your Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button onclick="viewScheduledInterviews()">View Scheduled Interviews</button>
+        <div id="scheduledInterviews"></div>
+    </div>
+
+    <script>
+        function viewScheduledInterviews() {
+            var email = document.getElementById("email").value;
+
+            // AJAX request to fetch scheduled interviews
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_student_scheduled_interviews.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("scheduledInterviews").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching scheduled interviews: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send("email=" + email);
+        }
+    </script>
+</body>
+</html>

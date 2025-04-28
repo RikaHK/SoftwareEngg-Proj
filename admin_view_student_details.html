@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Details</title>
+    <style>
+        /* Reset default margin and padding */
+        body, h1, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply background image */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff; /* Text color */
+        }
+
+        /* Styling for the container */
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+        }
+
+        /* Styling for the student details list */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        /* Styling for each student item */
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Styling for the View Resume button */
+        button {
+            background-color: #007bff; /* Blue color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect for the View Resume button */
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Student Details</h1>
+        <button id="viewButton">View</button>
+        <div id="studentDetails"></div>
+    </div>
+
+    <script>
+        document.getElementById("viewButton").addEventListener("click", function() {
+            // AJAX request to fetch student details
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "admin_view_student_details.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("studentDetails").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching student details: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        });
+
+        function viewResume(email) {
+            // AJAX request to fetch student resume details
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "admin_view_resume.php?email=" + email, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Open a new window to display the resume details
+                        var newWindow = window.open("", "_blank");
+                        newWindow.document.write(xhr.responseText);
+                    } else {
+                        console.error("Error fetching resume: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

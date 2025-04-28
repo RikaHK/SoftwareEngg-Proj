@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Proposals</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+        }
+
+        h1, h2 {
+            margin-top: 50px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #proposalsList {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #proposalsList ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #proposalsList ul li {
+            margin-bottom: 10px;
+        }
+
+        #proposalsList ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        #proposalsList ul li button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #proposalsList ul li button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Student Proposals</h1>
+    <form id="proposalForm">
+        <label for="companyName">Enter Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required>
+        <button type="submit">View Proposals</button>
+    </form>
+    <div id="proposalsList"></div>
+
+    <script>
+        document.getElementById("proposalForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var companyName = document.getElementById("companyName").value;
+
+            // AJAX request to fetch student proposals
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_student_proposals.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("proposalsList").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching proposals: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send("companyName=" + companyName);
+        });
+
+        function viewResume(studentEmail) {
+            // Redirect to view resume page with student's email
+            window.location.href = "view_resume.php?email=" + encodeURIComponent(studentEmail);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Job Fair Management System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Background color */
+        }
+
+        .contact-background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-image: url('images/contact.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 50px;
+            text-align: center;
+            color: #333;
+        }
+
+        .content h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .info-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .info-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">Home</a>
+    <div class="contact-background-image"></div>
+    <div class="content">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <div class="info-item">
+                <img src="images/email_icon.png" alt="Email Icon">
+                <p>isb.nu.edu.pk</p>
+            </div>
+            <div class="info-item">
+                <a href="tel:+923001234567">
+                    <img src="images/phone_icon.png" alt="Phone Icon">
+                    <p>111-128-128</p>
+                </a>
+            </div>
+            <div class="info-item">
+                <a href="https://www.google.com/maps/place/A.K+Brohi+Rd,+H+11%2F4+H-11,+Islamabad,+Islamabad+Capital+Territory/@33.6495889,73.0210583,17z/data=!3m1!4b1!4m6!3m5!1s0x38df95bdfa0130c5:0x34f336345da766a0!8m2!3d33.6495889!4d73.0210583!16s%2Fg%2F1tdh27dm?entry=ttu"
+                   target="_blank">
+                    <img src="images/location_icon.png" alt="Location Icon">
+                    <p>A.K Brohi Road, F-11, Islamabad</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job Fair Dates</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg'); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white; /* Change text color to white */
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #jobFairDates {
+            margin-top: 20px;
+            color: white; /* Change text color to white */
+        }
+        #jobFairDates p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Job Fair Dates</h1>
+        <button onclick="viewJobFairDates()">View Job Fair Dates</button>
+        <div id="jobFairDates"></div>
+    </div>
+
+    <script>
+        function viewJobFairDates() {
+            // AJAX request to fetch job fair dates
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "fetch_student_job_fair_dates.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Update HTML content with the received data
+                        document.getElementById("jobFairDates").innerHTML = xhr.responseText;
+                    } else {
+                        console.error("Error fetching job fair dates: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

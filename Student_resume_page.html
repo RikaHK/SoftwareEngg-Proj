@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resume</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg'); /* Add background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white; /* Change text color to white */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        textarea,
+        select {
+            width: calc(100% - 22px); /* Reduce the width by 22px for padding */
+            padding: 8px; /* Reduce padding */
+            margin-bottom: 15px; /* Adjust margin */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none; /* Prevent textarea resizing */
+            color: white; /* Change text color to white */
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white; /* Change text color to white */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Resume</h1>
+        <form action="Student_resume_page.php" method="post">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="fieldOfStudy">Field of Study</label>
+            <input type="text" id="fieldOfStudy" name="fieldOfStudy" required>
+
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+            <label for="language">Language (comma-separated)</label>
+            <input type="text" id="language" name="language" required>
+
+            <label for="experties">Expertise (comma-separated)</label>
+            <input type="text" id="experties" name="experties" required>
+
+            <label for="currentSemester">Current Semester/Status</label>
+            <select id="currentSemester" name="currentSemester" required>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+                <option value="Graduated">Graduated</option>
+            </select>
+
+            <label for="skills">Skills (comma-separated)</label>
+            <input type="text" id="skills" name="skills" required>
+
+            <label for="about">About</label>
+            <textarea id="about" name="about" rows="4" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
