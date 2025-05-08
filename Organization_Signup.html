@@ -20,7 +20,7 @@
             text-align: center;
         }
         .container {
-            background-color: rgba(106, 90, 205, 0.8); /* Transparent SlateBlue */
+            background-color: rgba(106, 90, 205, 0.8);
             padding: 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -30,7 +30,7 @@
         }
         h1 {
             font-size: 36px;
-            color: #333;
+            color: #fff;
             margin-bottom: 20px;
         }
         form {
@@ -51,11 +51,20 @@
             outline: none;
             border-color: #007bff;
         }
+        .error-message {
+            color: #ffcccb;
+            font-size: 14px;
+            margin-top: -8px;
+            margin-bottom: 10px;
+            display: none;
+            text-align: left;
+            width: 100%;
+        }
         .checkbox-label {
             display: flex;
             align-items: center;
             margin-top: 10px;
-            color: #333;
+            color: #fff;
         }
         input[type="checkbox"] {
             margin-right: 5px;
@@ -96,11 +105,21 @@
     <a href="index.html" class="home-btn">Home</a>
     <div class="container">
         <h1>Organization Registration</h1>
-        <form id="orgSignupForm" action="organization_signup.php" method="post">
-            <input type="text" name="name" placeholder="Organization Name" required>
-            <input type="text" name="field" placeholder="Field" required> <!-- New field -->
-            <input type="email" name="email" placeholder="Email" required>
+        <form id="orgSignupForm" action="organization_signup.php" method="post" novalidate>
+            <input type="text" name="name" id="name" placeholder="Organization Name" required>
+            <div class="error-message" id="nameError">Please enter the organization name.</div>
+
+            <input type="text" name="field" id="field" placeholder="Field" required>
+            <div class="error-message" id="fieldError">Please enter the field.</div>
+
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <div class="error-message" id="emailError">Please enter a valid email address.</div>
+
             <input type="password" name="password" id="password" placeholder="Password" required>
+            <div class="error-message" id="passwordError">
+                Password must be at least 6 characters, include one digit, one uppercase letter, and one special character.
+            </div>
+
             <div class="checkbox-label">
                 <input type="checkbox" id="showPassword">
                 <label for="showPassword">Show Password</label>
@@ -111,20 +130,57 @@
 
     <script>
         // Show/hide password
-        document.getElementById("showPassword").addEventListener("change", function() {
-            var passwordInput = document.getElementById("password");
-            if (this.checked) {
-                passwordInput.type = "text";
-            } else {
-                passwordInput.type = "password";
-            }
+        document.getElementById("showPassword").addEventListener("change", function () {
+            const passwordInput = document.getElementById("password");
+            passwordInput.type = this.checked ? "text" : "password";
         });
 
-        // Redirect to homepage after form submission
-        document.getElementById("orgSignupForm").onsubmit = function() {
-            window.location.href = "index.html";
-            return true; // Ensure form submission continues
-        };
+        // Form validation
+        document.getElementById("orgSignupForm").addEventListener("submit", function (e) {
+            let valid = true;
+
+            const name = document.getElementById("name");
+            const field = document.getElementById("field");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+
+            const nameError = document.getElementById("nameError");
+            const fieldError = document.getElementById("fieldError");
+            const emailError = document.getElementById("emailError");
+            const passwordError = document.getElementById("passwordError");
+
+            // Reset all errors
+            [nameError, fieldError, emailError, passwordError].forEach(el => el.style.display = "none");
+
+            if (name.value.trim() === "") {
+                nameError.style.display = "block";
+                valid = false;
+            }
+
+            if (field.value.trim() === "") {
+                fieldError.style.display = "block";
+                valid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value.trim())) {
+                emailError.style.display = "block";
+                valid = false;
+            }
+
+            const passVal = password.value;
+            const strongPass = passVal.length >= 6 &&
+                /[A-Z]/.test(passVal) &&
+                /\d/.test(passVal) &&
+                /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passVal);
+
+            if (!strongPass) {
+                passwordError.style.display = "block";
+                valid = false;
+            }
+
+            if (!valid) e.preventDefault();
+        });
     </script>
 </body>
 </html>

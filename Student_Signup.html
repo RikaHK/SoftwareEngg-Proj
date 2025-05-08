@@ -20,7 +20,7 @@
             text-align: center;
         }
         .container {
-            background-color: rgba(106, 90, 205, 0.8); /* Transparent SlateBlue */
+            background-color: rgba(106, 90, 205, 0.8);
             padding: 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -42,14 +42,20 @@
         input[type="text"], input[type="email"], input[type="password"] {
             width: calc(100% - 20px);
             padding: 12px;
-            margin: 10px 0;
+            margin: 10px 0 5px;
             border-radius: 5px;
             border: 1px solid #ccc;
             transition: border-color 0.3s ease;
         }
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+        input:focus {
             outline: none;
             border-color: #007bff;
+        }
+        .error-message {
+            color: #ffdcdc;
+            font-size: 13px;
+            margin-bottom: 8px;
+            height: 14px;
         }
         .submit-btn {
             background-color: #007bff;
@@ -59,6 +65,7 @@
             padding: 12px 20px;
             font-size: 18px;
             cursor: pointer;
+            margin-top: 10px;
             transition: background-color 0.3s ease;
         }
         .submit-btn:hover {
@@ -81,37 +88,88 @@
             background-color: #007bff;
             color: #fff;
         }
+        label[for="showPassword"] {
+            color: white;
+        }
     </style>
 </head>
 <body>
     <a href="index.html" class="home-btn">Home</a>
     <div class="container">
         <h1>Student Signup</h1>
-        <form id="signupForm" action="Student_signup.php" method="post">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" id="password" placeholder="Password" required>
+        <form id="signupForm" action="Student_signup.php" method="post" novalidate>
+            <input type="text" name="name" id="name" placeholder="Name">
+            <div class="error-message" id="nameError"></div>
+
+            <input type="text" name="username" id="username" placeholder="Username">
+            <div class="error-message" id="usernameError"></div>
+
+            <input type="email" name="email" id="email" placeholder="Email">
+            <div class="error-message" id="emailError"></div>
+
+            <input type="password" name="password" id="password" placeholder="Password">
+            <div class="error-message" id="passwordError"></div>
+
             <input type="checkbox" id="showPassword">
             <label for="showPassword">Show Password</label>
+
             <input type="submit" value="Submit" class="submit-btn">
         </form>
     </div>
 
     <script>
-        document.getElementById("showPassword").addEventListener("change", function() {
-            var passwordInput = document.getElementById("password");
-            if (this.checked) {
-                passwordInput.type = "text";
-            } else {
-                passwordInput.type = "password";
+        const form = document.getElementById("signupForm");
+
+        form.addEventListener("submit", function (e) {
+            let isValid = true;
+
+            // Get values
+            const name = document.getElementById("name").value.trim();
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            // Clear old errors
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("usernameError").textContent = "";
+            document.getElementById("emailError").textContent = "";
+            document.getElementById("passwordError").textContent = "";
+
+            // Validate name
+            if (name.length < 2) {
+                document.getElementById("nameError").textContent = "Name must be at least 2 characters.";
+                isValid = false;
+            }
+
+            // Validate username
+            const usernamePattern = /^[a-zA-Z0-9_]{5,15}$/;
+            if (!usernamePattern.test(username)) {
+                document.getElementById("usernameError").textContent = "Username must be 5–15 chars (letters, numbers, _).";
+                isValid = false;
+            }
+
+            // Validate email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").textContent = "Enter a valid email.";
+                isValid = false;
+            }
+
+            // Validate password
+            if (password.length < 6 || !/[A-Z]/.test(password) || !/\d/.test(password)) {
+                document.getElementById("passwordError").textContent = "Password must be 6+ chars, with a capital letter and number.";
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
             }
         });
 
-        // Redirect to homepage after form submission
-        document.getElementById("signupForm").onsubmit = function() {
-            window.location.href = "index.html";
-        };
+        document.getElementById("showPassword").addEventListener("change", function () {
+            const passwordInput = document.getElementById("password");
+            passwordInput.type = this.checked ? "text" : "password";
+        });
     </script>
 </body>
 </html>

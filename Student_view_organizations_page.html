@@ -128,7 +128,7 @@
         // Function to handle proposal submission
         function submitProposal(companyName, field) {
             var studentEmail = prompt("Please enter your email:");
-            if (studentEmail !== null && studentEmail !== "") {
+            if (studentEmail !== null && studentEmail !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(studentEmail)){
                 // AJAX request to submit proposal
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "Submit_proposal.php", true);
@@ -156,7 +156,7 @@
                 };
                 xhr.send("studentEmail=" + studentEmail + "&field=" + field + "&companyName=" + companyName);
             } else {
-                alert("Email submission canceled or empty.");
+                alert("Invalid Email! Enter a valid email address.");
             }
         }
     </script>

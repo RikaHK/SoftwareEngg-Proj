@@ -1,51 +1,62 @@
 <?php
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Include connection file
+    // Include the database connection
     require_once 'connection.php';
 
-    // Retrieve POST data
-    $name = $_POST['name'];
-    $field = $_POST['field']; // New field
-    $email = $_POST['email'];
+    // Retrieve and sanitize inputs
+    $name = trim($_POST['name']);
+    $field = trim($_POST['field']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Check if the password contains at least one digit and one special character
-    if (!preg_match('/\d/', $password) || !preg_match('/[!@#$%^&*()_+\-=\[\]{};\'\\:"|,.<>\/?]/', $password)) {
-        echo '<script>alert("Password must contain at least one digit and one special character!");</script>';
+    // Validate password strength (must contain digit, uppercase, special character, min 6 chars)
+    if (
+        strlen($password) < 6 ||
+        !preg_match('/\d/', $password) ||
+        !preg_match('/[A-Z]/', $password) ||
+        !preg_match('/[!@#$%^&*()_+\-=\[\]{};\'\\:"|,.<>\/?]/', $password)
+    ) {
+        echo '<script>alert("Password must be at least 6 characters long and include an uppercase letter, a digit, and a special character."); window.history.back();</script>';
         exit;
     }
 
-    // Hash the password
+    // Check if email already exists
+    $checkSql = "SELECT email FROM organization WHERE email = ?";
+    $checkStmt = $conn->prepare($checkSql);
+    if ($checkStmt) {
+        $checkStmt->bind_param("s", $email);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            echo '<script>alert("An organization with this email already exists."); window.history.back();</script>';
+            exit;
+        }
+        $checkStmt->close();
+    }
+
+    // Hash the password securely
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Prepare SQL query using prepared statement
+    // Insert new organization
     $sql = "INSERT INTO organization (name, field, email, password) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
-        // Bind parameters and execute query
         $stmt->bind_param("ssss", $name, $field, $email, $hashedPassword);
         if ($stmt->execute()) {
-            // Registration success
-            echo '<script>alert("Registration successful");</script>';
-            header('Location: index.html');
+            // Use JavaScript redirect with alert
+            echo '<script>alert("Registration successful! Redirecting to homepage..."); window.location.href = "index.html";</script>';
             exit;
         } else {
-            // Registration failed
-            echo '<script>alert("Registration failed: ' . $conn->error . '");</script>';
-            echo "Error inserting data: " . $conn->error;
+            echo '<script>alert("Registration failed. Please try again later."); window.history.back();</script>';
         }
-
-        // Close statement
         $stmt->close();
     } else {
-        // Statement preparation failed
-        echo '<script>alert("Statement preparation failed: ' . $conn->error . '");</script>';
-        echo "Statement preparation failed: " . $conn->error;
+        echo '<script>alert("Database error: Failed to prepare statement."); window.history.back();</script>';
     }
 
-    // Close connection
     $conn->close();
 }
 ?>

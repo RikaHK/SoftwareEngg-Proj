@@ -21,29 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             // Update allocated room for existing rows
             $updateSql = "UPDATE interviewschedule SET allocatedroom = ? WHERE organizationname = ?";
-            $stmt = $conn->prepare($updateSql);
+            $stmtUpdate = $conn->prepare($updateSql);
 
-            if ($stmt) {
-                // Bind parameters and execute query
-                $stmt->bind_param("ss", $room, $companyName);
-                if ($stmt->execute()) {
+            if ($stmtUpdate) {
+                // Bind parameters and execute update query
+                $stmtUpdate->bind_param("ss", $room, $companyName);
+                if ($stmtUpdate->execute()) {
                     echo "Room allocated successfully for $companyName.";
                 } else {
-                    echo "Error allocating room for $companyName: " . $conn->error;
+                    echo "Error allocating room for $companyName: " . $stmtUpdate->error;
                 }
-
-                // Close statement
-                $stmt->close();
+                // Close update statement
+                $stmtUpdate->close();
             } else {
-                // Statement preparation failed
-                echo "Statement preparation failed: " . $conn->error;
+                // Statement preparation failed for update
+                echo "Update statement preparation failed: " . $conn->error;
             }
         } else {
             echo "No rows found for $companyName.";
         }
+
+        // Close select statement
+        $stmt->close();
     } else {
-        // Statement preparation failed
-        echo "Statement preparation failed: " . $conn->error;
+        // Statement preparation failed for select
+        echo "Select statement preparation failed: " . $conn->error;
     }
 
     // Close connection
